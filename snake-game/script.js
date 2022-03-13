@@ -1,5 +1,5 @@
 const CELL_SIZE = 20;
-const CANVAS_SIZE = 400;
+const CANVAS_SIZE = 600;
 const REDRAW_INTERVAL = 50;
 const WIDTH = CANVAS_SIZE / CELL_SIZE;
 const HEIGHT = CANVAS_SIZE / CELL_SIZE;
@@ -40,7 +40,6 @@ function initSnake(color) {
     }
 }
 let snake1 = initSnake("purple");
-let snake2 = initSnake("blue");
 
 let apple = {
     color: "red",
@@ -78,14 +77,9 @@ function draw() {
         for (let i = 1; i < snake1.body.length; i++) {
             drawCell(ctx, snake1.body[i].x, snake1.body[i].y, snake1.color);
         }
-        drawCell(ctx, snake2.head.x, snake2.head.y, snake2.color);
-        for (let i = 1; i < snake2.body.length; i++) {
-            drawCell(ctx, snake2.body[i].x, snake2.body[i].y, snake2.color);
-        }
         drawCell(ctx, apple.position.x, apple.position.y, apple.color);
 
         drawScore(snake1);
-        drawScore(snake2);
     }, REDRAW_INTERVAL);
 }
 
@@ -151,7 +145,6 @@ function checkCollision(snakes) {
     if (isCollide) {
         alert("Game over");
         snake1 = initSnake("purple");
-        snake2 = initSnake("blue");
     }
     return isCollide;
 }
@@ -172,7 +165,7 @@ function move(snake) {
             break;
     }
     moveBody(snake);
-    if (!checkCollision([snake1, snake2])) {
+    if (!checkCollision([snake1])) {
         setTimeout(function() {
             move(snake);
         }, MOVE_INTERVAL);
@@ -209,21 +202,10 @@ document.addEventListener("keydown", function (event) {
     } else if (event.key === "ArrowDown") {
         turn(snake1, DIRECTION.DOWN);
     }
-
-    if (event.key === "a") {
-        turn(snake2, DIRECTION.LEFT);
-    } else if (event.key === "d") {
-        turn(snake2, DIRECTION.RIGHT);
-    } else if (event.key === "w") {
-        turn(snake2, DIRECTION.UP);
-    } else if (event.key === "s") {
-        turn(snake2, DIRECTION.DOWN);
-    }
 })
 
 function initGame() {
     move(snake1);
-    move(snake2);
 }
 
 initGame();
