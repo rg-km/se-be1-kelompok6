@@ -55,8 +55,6 @@ function drawScore(snake) {
     let scoreCanvas;
     if (snake.color == snake1.color) {
         scoreCanvas = document.getElementById("score1Board");
-    } else {
-        scoreCanvas = document.getElementById("score2Board");
     }
     let scoreCtx = scoreCanvas.getContext("2d");
 
